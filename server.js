@@ -2,14 +2,35 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 
-var articleOne = {
-    title: 'Article one | rohan bawri',
-    heading: "Article one",
-    date: 'Sep 5, 2016',
-    content: 
-         `<p>
-            This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. 
-          </p> `
+var articles = {
+      'article-one' : {
+        title: 'Article one | rohan bawri',
+        heading: "Article one",
+        date: 'Sep 5, 2016',
+        content: 
+             `<p>
+                This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. This is content of article one. 
+              </p> `
+},
+      'article-two' : {
+          title: 'Article Two | rohan bawri',
+            heading: "Article Two",
+            date: 'Sep 10, 2016',
+            content: 
+                 `<p>
+                    This is content of second article.
+                  </p> `
+      },
+      'article-three' : {
+          title: 'Article Three | rohan bawri',
+            heading: "Article Three",
+            date: 'Sep 14, 2016',
+            content: 
+                 `<p>
+                    This is content of third article.
+                  </p> `
+      },
+
 };
 function createTemplate(data){
     
@@ -53,16 +74,9 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function (req,res) {
- res.send(createTemplate(articleOne));
-});
-
-app.get('/article-two',function (req,res) {
-    res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function (req,res) {
-   res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+app.get('/:articleName',function (req,res) {
+    var articleName = req.params.articleName;
+ res.send(createTemplate(articleOne[articleName]));
 });
 
 app.get('/ui/style.css', function (req, res) {
